@@ -282,6 +282,7 @@
     h1 { font-size: 2.8rem; }
   }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 <div class="page">
@@ -437,6 +438,59 @@
       <section>
         <div class="section-label">Languages</div>
         <div class="lang-list">
+          <section>
+        <div class="section-label">Languages</div>
+        <div class="lang-list">
           <div class="lang"><span class="lang-name">Danish</span><span class="lang-level">Native</span></div>
           <div class="lang"><span class="lang-name">English</span><span class="lang-level">Full professional</span></div>
           <div class="lang"><span class="lang-name">German</span><span class="lang-level">Professional working</span></div>
+        </div>
+      </section>
+
+    </aside>
+  </div>
+</div>
+
+<button id="download-btn" onclick="downloadPDF()" style="
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: #111111;
+  color: #ffffff;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: none;
+  padding: 0.75rem 1.4rem;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.15);
+  transition: background 0.2s;
+" onmouseover="this.style.background='#444'" onmouseout="this.style.background='#111111'">
+  ↓ Download PDF
+</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+  function downloadPDF() {
+    const btn = document.getElementById('download-btn');
+    btn.style.display = 'none';
+
+    const element = document.querySelector('.page');
+    const opt = {
+      margin:       [10, 10, 10, 10],
+      filename:     'Edis_Holm_CV.pdf',
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2, useCORS: true },
+      jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(element).save().then(() => {
+      btn.style.display = 'block';
+    });
+  }
+</script>
+
+</body>
+</html>
